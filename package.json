@@ -1,0 +1,19 @@
+{
+  "name": "com.berkcankarabulut.finitestate",
+  "version": "1.0.0",
+  "displayName": "Finite State Machine Framework",
+  "description": "A powerful and flexible implementation of the Finite State Machine (FSM) pattern for Unity",
+  "author": {
+    "name": "BerkcanKarabulut",
+    "url": "https://github.com/berkcankarabulut"
+  },
+  "keywords": [
+    "state machine",
+    "fsm",
+    "ai",
+    "behavior",
+    "unity"
+  ],
+  "unity": "2020.3",
+  "dependencies": {}
+ }
