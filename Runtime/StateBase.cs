@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AIState.Runtime
+namespace FiniteState.Runtime
 {
     public abstract class StateBase<T> : IState where T : MonoBehaviour
     {

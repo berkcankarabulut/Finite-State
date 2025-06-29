@@ -1,4 +1,4 @@
-namespace AIState.Runtime
+namespace FiniteState.Runtime
 {
     public abstract class Condition
     {

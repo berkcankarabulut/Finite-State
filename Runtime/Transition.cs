@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AIState.Runtime
+namespace FiniteState.Runtime
 {
     public class Transition
     {

@@ -1,60 +1,57 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace AIState.Runtime
+namespace FiniteState.Runtime
 {
     public abstract class StateMachine<T> where T : MonoBehaviour
     {
-        private T owner;
-        private IState currentState;
-        private IState previousState;
-        private Dictionary<System.Type, IState> stateCache;
-    
-        public StateMachine(T owner)
+        protected T owner;
+        private IState _currentState;
+        private IState _previousState;
+        private Dictionary<System.Type, IState> _stateCache;
+        public IState CurrentState => _currentState;
+        
+        protected StateMachine(T owner)
         {
             this.owner = owner;
-            stateCache = new Dictionary<System.Type, IState>();
+            _stateCache = new Dictionary<System.Type, IState>();
         }
     
         public void Update()
         {
-            if (currentState != null)
-            { 
-                currentState.Execute();
+            if (_currentState == null) return;
+            _currentState.Execute();
                  
-                IState newState = currentState.CheckTransitions();
-                
-                if (newState != null && newState != currentState)
-                {
-                    ChangeState(newState);
-                }
-            }
+            IState newState = _currentState.CheckTransitions(); 
+            if (newState == null || newState == _currentState) return;
+            ChangeState(newState);
         }
-     
+
+        // Public method to change state with IState instance
         public void ChangeState(IState newState)
         {
-            if (currentState != null)
-                currentState.Exit();
+            if (_currentState != null)
+                _currentState.Exit();
                 
-            previousState = currentState;
-            currentState = newState;
+            _previousState = _currentState;
+            _currentState = newState;
             
-            if (currentState != null)
-                currentState.Enter();
+            if (_currentState != null)
+                _currentState.Enter();
         }
      
         public void ChangeState<TState>() where TState : IState
         {
             System.Type stateType = typeof(TState);
             
-            if (currentState != null && currentState.GetType() == stateType)
+            if (_currentState != null && _currentState.GetType() == stateType)
                 return;
                 
             IState newState;
-            if (!stateCache.TryGetValue(stateType, out newState))
+            if (!_stateCache.TryGetValue(stateType, out newState))
             {
                 newState = System.Activator.CreateInstance(stateType, new object[] { owner, this }) as IState;
-                stateCache[stateType] = newState;
+                _stateCache[stateType] = newState;
             }
             
             ChangeState(newState);
@@ -62,9 +59,9 @@ namespace AIState.Runtime
      
         public void RevertToPreviousState()
         {
-            if (previousState != null)
+            if (_previousState != null)
             {
-                ChangeState(previousState);
+                ChangeState(_previousState);
             }
         }
     }

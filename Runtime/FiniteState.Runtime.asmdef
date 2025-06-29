@@ -1,10 +1,8 @@
 {
-    "name": "AIState.Editor",
-    "rootNamespace": "AIState.Editor",
+    "name": "FiniteState.Runtime",
+    "rootNamespace": "FiniteState.Runtime",
     "references": [],
-    "includePlatforms": [
-        "Editor"
-    ],
+    "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,
