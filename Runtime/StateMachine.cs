@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace FiniteState.Runtime
 {
-    public abstract class StateMachine<T> where T : MonoBehaviour
+    public abstract class StateMachine<T>
     {
         protected T owner;
         private IState _currentState;
